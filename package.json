@@ -1,0 +1,24 @@
+{
+  "name": "get-strava-token",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kennx/get-strava-token.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kennx/get-strava-token/issues"
+  },
+  "homepage": "https://github.com/kennx/get-strava-token#readme",
+  "dependencies": {
+    "koa": "^2.14.0",
+    "koa-static-server": "^1.5.2"
+  }
+}

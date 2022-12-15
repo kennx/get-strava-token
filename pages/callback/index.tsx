@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { ScriptProps } from 'next/script';
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 import strava from 'strava-v3';
 
 interface StravaDataProps extends ScriptProps {
@@ -14,7 +14,8 @@ interface StravaObject {
   redirect_uri: string;
   access_token: string;
   refresh_token: string;
-  expires_at: string;
+  expires_at: number;
+  expires_in: number;
   token_type: string;
   athlete: {};
 }
@@ -22,6 +23,8 @@ interface StravaObject {
 function CallbackPage(props: StravaDataProps) {
   const codeRef = useRef<HTMLDivElement>(null);
   const athleteRef = useRef<HTMLPreElement>(null);
+
+  console.log(props.data);
 
   useEffect(() => {
     const template = `<pre>STRAVA_CLIENT_ID=${props.data.client_id}</pre><pre>STRAVA_CLIENT_SECRET=${props.data.client_secret}</pre><pre>STRAVA_REDIRECT_URI=${props.data.redirect_uri}</pre><pre>STRAVA_ACCESS_TOKEN=${props.data.access_token}</pre><pre>STRAVA_REFRESH_TOKEN=${props.data.refresh_token}</pre><pre>EXPIRES_AT=${props.data.expires_at}</pre><pre>TOKEN_TYPE=${props.data.token_type}</pre>`;
@@ -57,7 +60,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   try {
     const code = String(query.code);
     const result = await strava.oauth.getToken(code);
-    result.cleint_id = process.env.STRAVA_CLIENT_ID;
+    result.client_id = process.env.STRAVA_CLIENT_ID;
     result.client_secret = process.env.STRAVA_CLIENT_SECRET;
     result.redirect_uri = process.env.STRAVA_REDIRECT_URI;
     return {

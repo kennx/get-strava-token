@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity)) !important;
+}
